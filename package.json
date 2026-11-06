@@ -1,0 +1,38 @@
+{
+  "name": "form-assist-workspace",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @sentroy-co/form-assist",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "demo": "vite examples/demo --host 0.0.0.0",
+    "test:browser": "playwright test",
+    "pack:local": "npm run build && node scripts/prepare-package.mjs && mkdir -p artifacts && npm pack -w @sentroy-co/form-assist --pack-destination artifacts",
+    "verify:package": "node scripts/verify-package.mjs",
+    "test:languages": "bash scripts/integration-languages.sh",
+    "test:next": "node tests/next/hydration.mjs",
+    "measure:performance": "node scripts/measure-performance.mjs",
+    "build:demo": "vite build examples/demo --base=./ --outDir ../../artifacts/launch --emptyOutDir",
+    "preview:demo": "vite preview examples/demo --outDir ../../artifacts/launch --host 0.0.0.0",
+    "verify:launch": "node scripts/verify-launch.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "happy-dom": "^20.0.0",
+    "next": "16.4.5",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.66.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.1",
+    "vitest": "^3.2.4"
+  }
+}

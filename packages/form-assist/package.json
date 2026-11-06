@@ -1,0 +1,105 @@
+{
+  "name": "@sentroy-co/form-assist",
+  "version": "0.1.0",
+  "description": "Reviewable AI form proposals with portable JSON Schema and isolated server credentials",
+  "type": "module",
+  "license": "UNLICENSED",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "docs",
+    "fixtures",
+    "COMPATIBILITY.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "workerd": {
+        "import": "./dist/server/index.js"
+      },
+      "browser": null,
+      "import": "./dist/server/index.js"
+    },
+    "./server/node": {
+      "types": "./dist/server/node.d.ts",
+      "workerd": null,
+      "browser": null,
+      "import": "./dist/server/node.js"
+    },
+    "./providers": {
+      "types": "./dist/providers/index.d.ts",
+      "workerd": {
+        "import": "./dist/providers/index.js"
+      },
+      "browser": null,
+      "import": "./dist/providers/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser/index.d.ts",
+      "import": "./dist/browser/index.js"
+    },
+    "./ui": {
+      "types": "./dist/ui/index.d.ts",
+      "import": "./dist/ui/index.js"
+    },
+    "./react": {
+      "types": "./dist/adapters/react.d.ts",
+      "import": "./dist/adapters/react.js"
+    },
+    "./react-hook-form": {
+      "types": "./dist/adapters/react-hook-form.d.ts",
+      "import": "./dist/adapters/react-hook-form.js"
+    },
+    "./native": {
+      "types": "./dist/adapters/native.d.ts",
+      "import": "./dist/adapters/native.js"
+    },
+    "./i18n": {
+      "types": "./dist/i18n/index.d.ts",
+      "import": "./dist/i18n/index.js"
+    }
+  },
+  "bin": {
+    "form-assist": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-hook-form": ">=7"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-hook-form": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sentroy-Co/form-assist.git"
+  },
+  "homepage": "https://github.com/Sentroy-Co/form-assist#readme",
+  "bugs": {
+    "url": "https://github.com/Sentroy-Co/form-assist/issues"
+  }
+}

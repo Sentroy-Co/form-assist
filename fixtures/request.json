@@ -1,0 +1,21 @@
+{
+  "protocolVersion": "1",
+  "requestId": "fixture-request-1",
+  "formId": "article-editor",
+  "baseRevision": "initial-1",
+  "values": {
+    "title": "Yeni makale",
+    "excerpt": "",
+    "body": "",
+    "seoTitle": "",
+    "description": "",
+    "tags": [],
+    "category": "guides",
+    "coverAlt": "",
+    "slug": "existing-article",
+    "published": false
+  },
+  "prompt": "Write a concise English title about organizing source notes.",
+  "connectionId": "demo",
+  "model": "fixture"
+}

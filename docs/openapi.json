@@ -1,0 +1,380 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Form Assist host API",
+    "version": "1.0.0",
+    "description": "Mount inside your authenticated host. Tenant comes from server session. No public proxy is provided."
+  },
+  "paths": {
+    "/api/form-assist": {
+      "post": {
+        "operationId": "propose",
+        "security": [
+          {
+            "hostSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProposeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete validated plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangePlan"
+                }
+              },
+              "application/x-ndjson": {
+                "schema": {
+                  "type": "string",
+                  "description": "One version 1 result event with requestId and plan, terminated by newline; no partial JSON."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "403": {
+            "description": "Forbidden form/connection/model"
+          },
+          "409": {
+            "description": "Revision conflict"
+          },
+          "413": {
+            "description": "Size or token bound"
+          },
+          "429": {
+            "description": "Rate or concurrency limit"
+          },
+          "502": {
+            "description": "Invalid provider output"
+          },
+          "504": {
+            "description": "Timeout"
+          }
+        }
+      }
+    },
+    "/api/credentials": {
+      "get": {
+        "operationId": "listCredentials",
+        "security": [
+          {
+            "hostSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Masked summaries only; never saved secrets"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/credentials/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "operationId": "saveCredential",
+        "security": [
+          {
+            "hostSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "provider",
+                  "model",
+                  "enabled",
+                  "default"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "provider": {
+                    "type": "string"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "default": {
+                    "type": "boolean"
+                  },
+                  "secrets": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string",
+                      "writeOnly": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Masked saved summary"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteCredential",
+        "security": [
+          {
+            "hostSession": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Removed"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/credentials/{id}/test": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "operationId": "testCredential",
+        "security": [
+          {
+            "hostSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "allowPaidTest"
+                ],
+                "properties": {
+                  "allowPaidTest": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Host-supplied bounded test succeeded; may incur charges"
+          },
+          "400": {
+            "description": "Explicit paid test opt-in required"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "504": {
+            "description": "Test timeout"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "hostSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "host-session",
+        "description": "Illustrative cookie name; host supplies and verifies its actual session and CSRF policy."
+      }
+    },
+    "schemas": {
+      "ProposeRequest": {
+        "type": "object",
+        "required": [
+          "protocolVersion",
+          "requestId",
+          "formId",
+          "baseRevision",
+          "values",
+          "prompt",
+          "connectionId",
+          "model"
+        ],
+        "properties": {
+          "protocolVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "formId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "baseRevision": {
+            "type": "string",
+            "minLength": 1
+          },
+          "connectionId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "model": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "values": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChangePlan": {
+        "type": "object",
+        "required": [
+          "protocolVersion",
+          "requestId",
+          "formId",
+          "baseRevision",
+          "changes",
+          "questions",
+          "warnings"
+        ],
+        "properties": {
+          "protocolVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "formId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "baseRevision": {
+            "type": "string",
+            "minLength": 1
+          },
+          "changes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "op",
+                "path"
+              ],
+              "properties": {
+                "op": {
+                  "enum": [
+                    "add",
+                    "replace",
+                    "remove"
+                  ]
+                },
+                "path": {
+                  "type": "string",
+                  "pattern": "^/."
+                },
+                "value": {},
+                "reason": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "remove"
+                      }
+                    }
+                  },
+                  "then": {
+                    "not": {
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  },
+                  "else": {
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "protocolVersion",
+    "requestId",
+    "formId",
+    "baseRevision",
+    "changes",
+    "questions",
+    "warnings"
+  ],
+  "properties": {
+    "protocolVersion": {
+      "const": "1"
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "formId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "baseRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "op",
+          "path"
+        ],
+        "properties": {
+          "op": {
+            "enum": [
+              "add",
+              "replace",
+              "remove"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^/."
+          },
+          "value": {},
+          "reason": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "op": {
+                  "const": "remove"
+                }
+              }
+            },
+            "then": {
+              "not": {
+                "required": [
+                  "value"
+                ]
+              }
+            },
+            "else": {
+              "required": [
+                "value"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

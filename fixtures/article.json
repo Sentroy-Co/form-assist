@@ -1,0 +1,143 @@
+{
+  "formId": "article-editor",
+  "schemaVersion": "1",
+  "revision": "initial-1",
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "title": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "excerpt": {
+        "type": "string",
+        "maxLength": 240
+      },
+      "body": {
+        "type": "string",
+        "maxLength": 20000
+      },
+      "seoTitle": {
+        "type": "string",
+        "maxLength": 60
+      },
+      "description": {
+        "type": "string",
+        "maxLength": 160
+      },
+      "tags": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "type": "string",
+          "maxLength": 30
+        }
+      },
+      "category": {
+        "type": "string",
+        "enum": [
+          "practice",
+          "news",
+          "guides"
+        ]
+      },
+      "coverAlt": {
+        "type": "string",
+        "maxLength": 140
+      },
+      "slug": {
+        "type": "string"
+      },
+      "published": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "title",
+      "body",
+      "category",
+      "slug",
+      "published"
+    ]
+  },
+  "values": {
+    "title": "Yeni makale",
+    "excerpt": "",
+    "body": "",
+    "seoTitle": "",
+    "description": "",
+    "tags": [],
+    "category": "guides",
+    "coverAlt": "",
+    "slug": "existing-article",
+    "published": false
+  },
+  "fields": [
+    {
+      "path": "/title",
+      "aiWritable": true,
+      "readOnly": false
+    },
+    {
+      "path": "/excerpt",
+      "aiWritable": true,
+      "readOnly": false
+    },
+    {
+      "path": "/body",
+      "aiWritable": true,
+      "readOnly": false
+    },
+    {
+      "path": "/seoTitle",
+      "aiWritable": true,
+      "readOnly": false
+    },
+    {
+      "path": "/description",
+      "aiWritable": true,
+      "readOnly": false
+    },
+    {
+      "path": "/tags",
+      "aiWritable": true,
+      "readOnly": false
+    },
+    {
+      "path": "/category",
+      "aiWritable": true,
+      "readOnly": false,
+      "options": [
+        {
+          "label": "Uygulama",
+          "value": "practice"
+        },
+        {
+          "label": "Haberler",
+          "value": "news"
+        },
+        {
+          "label": "Rehberler",
+          "value": "guides"
+        }
+      ]
+    },
+    {
+      "path": "/coverAlt",
+      "aiWritable": true,
+      "readOnly": false
+    },
+    {
+      "path": "/slug",
+      "aiWritable": false,
+      "readOnly": true
+    },
+    {
+      "path": "/published",
+      "aiWritable": false,
+      "readOnly": true
+    }
+  ]
+}

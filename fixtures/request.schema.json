@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "protocolVersion",
+    "requestId",
+    "formId",
+    "baseRevision",
+    "values",
+    "prompt",
+    "connectionId",
+    "model"
+  ],
+  "properties": {
+    "protocolVersion": {
+      "const": "1"
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "formId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "baseRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "connectionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prompt": {
+      "type": "string"
+    },
+    "values": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

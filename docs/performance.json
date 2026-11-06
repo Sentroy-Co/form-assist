@@ -1,0 +1,11 @@
+{
+  "measuredAt": "2026-11-06T06:58:26.865Z",
+  "node": "v24.19.0",
+  "platform": "linux",
+  "arch": "x64",
+  "operation": "validatePlan(article, one-change-plan)",
+  "samples": 50,
+  "medianMs": 10.357,
+  "p95Ms": 15.736,
+  "budgetP95Ms": 100
+}

@@ -1,0 +1,18 @@
+{
+  "protocolVersion": "1",
+  "requestId": "fixture-request-1",
+  "formId": "article-editor",
+  "baseRevision": "initial-1",
+  "changes": [
+    {
+      "op": "replace",
+      "path": "/title",
+      "value": "Organizing Your Source Notes",
+      "reason": "Requested a concise English title"
+    }
+  ],
+  "questions": [],
+  "warnings": [
+    "Demo fixture; no external provider was contacted."
+  ]
+}

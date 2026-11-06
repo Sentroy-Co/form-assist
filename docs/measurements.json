@@ -1,0 +1,31 @@
+{
+  "measuredAt": "2026-11-06T07:00:36.327Z",
+  "node": "v24.19.0",
+  "package": "sentroy-co-form-assist-0.1.0.tgz",
+  "bundles": {
+    "core": {
+      "minifiedBytes": 159512,
+      "gzipBytes": 47794,
+      "lazyChunks": 0,
+      "totalIncludingAllLocalesBytes": 159512
+    },
+    "browser": {
+      "minifiedBytes": 162698,
+      "gzipBytes": 49054,
+      "lazyChunks": 0,
+      "totalIncludingAllLocalesBytes": 162698
+    },
+    "ui": {
+      "minifiedBytes": 33958,
+      "gzipBytes": 12251,
+      "lazyChunks": 53,
+      "totalIncludingAllLocalesBytes": 334986
+    },
+    "i18n": {
+      "minifiedBytes": 9191,
+      "gzipBytes": 4174,
+      "lazyChunks": 53,
+      "totalIncludingAllLocalesBytes": 310219
+    }
+  }
+}
